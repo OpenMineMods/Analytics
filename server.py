@@ -9,7 +9,8 @@ validations = {
     "uuid": str,
     "ver": str,
     "mmc": str,
-    "inst": str
+    "inst": str,
+    "sys": str
 }
 
 base = ""
@@ -36,7 +37,9 @@ def installed():
     ip = int(request.get_header("CF-Connecting-IP", "0.0.0.0").split(".")[-1])
     loc = request.get_header("CF-IPCountry", "XX")
 
-    db.insert_anal(request.json["ver"], loc, ip, request.json["uuid"], request.json["mmc"], request.json["inst"])
+    rj = request.json
+
+    db.insert_anal(rj["ver"], loc, ip, rj["uuid"], rj["mmc"], rj["inst"], rj["sys"])
     return
 
 run(host="0.0.0.0", port=9615)
