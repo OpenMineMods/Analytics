@@ -1,5 +1,7 @@
 import sqlite3
 
+from time import time
+
 
 class AnalyticsDB:
     def __init__(self):
@@ -19,7 +21,7 @@ class AnalyticsDB:
     def insert_anal(self, ver: str, country: str, ip: int, uuid: str):
         self.c.execute("""
             INSERT INTO installed(date,version,country,ip,uuid) VALUES (?,?,?,?,?)
-        """, (123, ver, country, ip, uuid))
+        """, (int(time()*1000), ver, country, ip, uuid))
 
         self.db.commit()
 
