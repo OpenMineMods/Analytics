@@ -1,0 +1,1 @@
+# Analytics Server for OpenMineMods
