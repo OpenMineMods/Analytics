@@ -16,6 +16,12 @@ class AnalyticsDB:
                 ip INTEGER, uuid TEXT, mmcdir TEXT, installdir TEXT, system TEXT)
         """)
 
+        self.c.execute("""
+            CREATE TABLE IF NOT EXISTS crashes
+                (id INTEGER PRIMARY KEY AUTOINCREMENT, date INTEGER, exception TEXT, email TEXT, notes TEXT,
+                uuid TEXT, version TEXT)
+        """)
+
         self.db.commit()
 
     def insert_anal(self, ver: str, country: str, ip: int, uuid: str, mmc: str, install: str, sys: str):
@@ -24,6 +30,11 @@ class AnalyticsDB:
         """, (int(time()*1000), ver, country, ip, uuid, mmc, install, sys))
 
         self.db.commit()
+
+    def insert_crash(self, ver: str, exc: str, email: str, notes: str, uuid: str):
+        self.c.execute("""
+            INSERT INTO installed(date,exception,email,notes,uuid,version) VALUES (?,?,?,?,?,?)
+        """, (int(time()*1000), exc, email, notes, uuid, ver))
 
     def select(self, statement):
         self.c.execute(statement)
