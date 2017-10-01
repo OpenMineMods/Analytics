@@ -36,6 +36,8 @@ class AnalyticsDB:
             INSERT INTO installed(date,exception,email,notes,uuid,version) VALUES (?,?,?,?,?,?)
         """, (int(time()*1000), exc, email, notes, uuid, ver))
 
+        self.db.commit()
+
     def select(self, statement):
         self.c.execute(statement)
         return self.c.fetchall()
