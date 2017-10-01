@@ -33,7 +33,7 @@ class AnalyticsDB:
 
     def insert_crash(self, ver: str, exc: str, email: str, notes: str, uuid: str):
         self.c.execute("""
-            INSERT INTO installed(date,exception,email,notes,uuid,version) VALUES (?,?,?,?,?,?)
+            INSERT INTO crashes(date,exception,email,notes,uuid,version) VALUES (?,?,?,?,?,?)
         """, (int(time()*1000), exc, email, notes, uuid, ver))
 
         self.db.commit()
